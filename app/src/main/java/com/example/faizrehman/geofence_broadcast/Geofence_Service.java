@@ -61,9 +61,6 @@ public class Geofence_Service extends Service implements GoogleApiClient.OnConne
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this,"service Started",Toast.LENGTH_LONG).show();
-        int i=0;
-
         if(intent!=null) {
             if(intent.hasExtra("booleanKey")) {
                 isCheckforAddfence = intent.getBooleanExtra("booleanKey", false);
@@ -79,19 +76,17 @@ public class Geofence_Service extends Service implements GoogleApiClient.OnConne
                 startService(intentt);
             } else if(mGoogleApiClient.isConnected() && isCheckforAddfence){
                 populateGeofenceList();
-                AddGeofenceHandler(
-
-                );
+                AddGeofenceHandler();
             }
         }
-
+        Toast.makeText(this,"service Started",Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Toast.makeText(this,"onCreate Service",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"onCreate Service",Toast.LENGTH_SHORT).show();
         buildGoogleApiClient();
         mGoogleApiClient.connect();
         sqlGeofenceArrayList = new ArrayList<>();
@@ -100,7 +95,7 @@ public class Geofence_Service extends Service implements GoogleApiClient.OnConne
         geo_Sqlite = new Geofence_Sqlite(this);
 
         if(isNetworkConnected()) {
-            mDatabase.child("geofence").addChildEventListener(new ChildEventListener() {
+            mDatabase.child("geofence").child("faiz").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Log.i(TAG, "onChildAdded: ");
@@ -225,7 +220,7 @@ public class Geofence_Service extends Service implements GoogleApiClient.OnConne
 
 
     protected void AddGeofenceHandler() {
-        if (!mGoogleApiClient.isConnected() || arrayListGeo.isEmpty()) {
+        if (!mGoogleApiClient.isConnected()) {
             Toast.makeText(this, "Not Connected", Toast.LENGTH_SHORT).show();
             return;
         }

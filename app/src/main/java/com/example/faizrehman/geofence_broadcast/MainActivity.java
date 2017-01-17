@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     // Create the geofence.
                     .build());
             String Pushref = mDatabase.child("geofence").push().getKey();
-                    mDatabase.child("geofence").child(Pushref).setValue(new Model(entry.getValue().longitude,entry.getValue().latitude,Constants.GEOFENCE_RADIUS_IN_METERS,Pushref,entry.getKey()));
+                    mDatabase.child("geofence").child("faiz").child(Pushref).setValue(new Model(entry.getValue().longitude,entry.getValue().latitude,Constants.GEOFENCE_RADIUS_IN_METERS,Pushref,entry.getKey()));
 
 
         }

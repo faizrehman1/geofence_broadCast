@@ -70,9 +70,9 @@ public class BroadCastIntent extends BroadcastReceiver {
 
             double Longitude =  geofencingEvent.getTriggeringLocation().getLongitude();
             Date date = new Date(System.currentTimeMillis());
-            SimpleDateFormat format = new SimpleDateFormat("EEE, MMM d, ''yy", Locale.ENGLISH);
+            SimpleDateFormat format = new SimpleDateFormat("yyyyy.MMMMM.dd GGG hh:mm aaa", Locale.ENGLISH);
             String st_date = format.format(date);
-            mDatabase.child("Trigger Geofence").child("faiz").push().setValue(new Model(Longitude,Latitude,geofenceTransitionDetail,st_date));
+            mDatabase.child("Trigger Geofence").child("faiz").push().setValue(new Model(Longitude,Latitude,Constants.GEOFENCE_RADIUS_IN_METERS,geofenceTransitionDetail,st_date));
 
             Log.i(TAG, "onHandleIntent: "+geofenceTransitionDetail);
         }else{
