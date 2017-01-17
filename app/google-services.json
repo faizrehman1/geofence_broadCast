@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1037479829053",
+    "firebase_url": "https://geofencebroadcast-f18e3.firebaseio.com",
+    "project_id": "geofencebroadcast-f18e3",
+    "storage_bucket": "geofencebroadcast-f18e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037479829053:android:ec8d5a247ad392ae",
+        "android_client_info": {
+          "package_name": "com.example.faizrehman.geofence_broadcast"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037479829053-bq21pdffva97k2b1p1bjt0ers3t5lrh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnlCbe88hos-5L4olzrzn5wU6w72x9PGE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
