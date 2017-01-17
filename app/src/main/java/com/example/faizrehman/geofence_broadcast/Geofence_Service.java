@@ -70,18 +70,19 @@ public class Geofence_Service extends Service implements GoogleApiClient.OnConne
             }else{
                 isCheckforAddfence = false;
             }
+            if(mGoogleApiClient==null){
+                buildGoogleApiClient();
+                mGoogleApiClient.connect();
+            }else if(!mGoogleApiClient.isConnected() || mGoogleApiClient.isConnecting()){
+                Intent intentt = new Intent(this,Geofence_Service.class);
+                intentt.putExtra("booleanKey",true);
+                startService(intentt);
+            } else if(mGoogleApiClient.isConnected() && isCheckforAddfence){
+                populateGeofenceList();
+                AddGeofenceHandler();
+            }
         }
-        if(mGoogleApiClient==null){
-            buildGoogleApiClient();
-            mGoogleApiClient.connect();
-        }else if(!mGoogleApiClient.isConnected() || mGoogleApiClient.isConnecting()){
-            Intent intentt = new Intent(this,Geofence_Service.class);
-            intentt.putExtra("booleanKey",true);
-            startService(intentt);
-        } else if(mGoogleApiClient.isConnected() && isCheckforAddfence){
-            populateGeofenceList();
-            AddGeofenceHandler();
-        }
+
         return START_STICKY;
     }
 
