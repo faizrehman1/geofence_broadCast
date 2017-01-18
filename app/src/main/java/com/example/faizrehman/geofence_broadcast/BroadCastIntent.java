@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,13 +33,17 @@ import java.util.Locale;
 public class BroadCastIntent extends BroadcastReceiver {
     protected static final String TAG = "Worker Thread";
     public GoogleApiClient googleApiClient = null;
+    private DatabaseReference mDatabase;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         Toast.makeText(context,"Hello",Toast.LENGTH_LONG).show();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-       if("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())){
+
+        if("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())){
 
         Toast.makeText(context,"Service start in BroadcastReciever",Toast.LENGTH_LONG).show();
         Intent intent1 = new Intent(context,Geofence_Service.class);
@@ -60,6 +66,14 @@ public class BroadCastIntent extends BroadcastReceiver {
 
             String geofenceTransitionDetail = getTransitionDetail(context,geofenceTransition,geoFencingList);
             sendNotification(context,geofenceTransitionDetail);
+            double Latitude =  geofencingEvent.getTriggeringLocation().getLatitude();
+
+            double Longitude =  geofencingEvent.getTriggeringLocation().getLongitude();
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat format = new SimpleDateFormat("EEE, MMM d, ''yy", Locale.ENGLISH);
+            String st_date = format.format(date);
+            mDatabase.child("Trigger Geofence").child("faiz").push().setValue(new Model(Longitude,Latitude,geofenceTransitionDetail,st_date));
+
             Log.i(TAG, "onHandleIntent: "+geofenceTransitionDetail);
         }else{
             Log.e(TAG, "onHandleIntent: "+context.getString(R.string.geofence_transition_invalid_type) );

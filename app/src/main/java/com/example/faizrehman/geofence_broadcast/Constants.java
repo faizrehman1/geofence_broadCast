@@ -45,6 +45,24 @@ public class Constants  {
 
         // Test
         BAY_AREA_LANDMARKS.put("Five star", new LatLng(24.9252498,67.0860951));
+
+
+//        BAY_AREA_LANDMARKS.put("MeatOne ", new LatLng(24.813602758751703, 67.04840116202831));
+////
+////        // OFFICE
+//        BAY_AREA_LANDMARKS.put("HOME ", new LatLng(24.882545824417782,67.05190446227789));
+////
+////        //HOTEL
+//        BAY_AREA_LANDMARKS.put("Agha ", new LatLng(24.814108846402565,67.050461769104));
+////
+//        BAY_AREA_LANDMARKS.put("Saylani ", new LatLng(24.88304828447051,67.06828840076923));
+//        BAY_AREA_LANDMARKS.put("SSUET-F ", new LatLng(24.935934148512622,67.03469607979059));
+//        BAY_AREA_LANDMARKS.put("SSUET-B ", new LatLng(24.91561927070885,67.09298986941576));
+//
+
+
+
+
     }
 
 }

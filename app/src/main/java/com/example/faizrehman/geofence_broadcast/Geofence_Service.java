@@ -79,7 +79,9 @@ public class Geofence_Service extends Service implements GoogleApiClient.OnConne
                 startService(intentt);
             } else if(mGoogleApiClient.isConnected() && isCheckforAddfence){
                 populateGeofenceList();
-                AddGeofenceHandler();
+                AddGeofenceHandler(
+
+                );
             }
         }
 
@@ -97,15 +99,24 @@ public class Geofence_Service extends Service implements GoogleApiClient.OnConne
         mDatabase = FirebaseDatabase.getInstance().getReference();
         geo_Sqlite = new Geofence_Sqlite(this);
 
-
         if(isNetworkConnected()) {
             mDatabase.child("geofence").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Log.i(TAG, "onChildAdded: ");
                     Model model = dataSnapshot.getValue(Model.class);
-                    geo_Sqlite.Addvalue(model);
-                    Toast.makeText(Geofence_Service.this, "add value in sqlite", Toast.LENGTH_SHORT).show();
+                    if (sqlGeofenceArrayList.size() == 0) {
+                        geo_Sqlite.Addvalue(model);
+                    } else {
+                        for (int i = 0; i < sqlGeofenceArrayList.size(); i++) {
+                            if (sqlGeofenceArrayList.get(i).getFenceKey().equals(model.getFenceKey())) {
+                                Toast.makeText(Geofence_Service.this, model.getFenceKey() + "is Already added", Toast.LENGTH_SHORT).show();
+                            } else {
+                                geo_Sqlite.Addvalue(model);
+                                Toast.makeText(Geofence_Service.this, "add value in sqlite", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
                 }
 
                 @Override
@@ -116,7 +127,15 @@ public class Geofence_Service extends Service implements GoogleApiClient.OnConne
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     Log.i(TAG, "onChildRemoved: ");
-                }
+                    Model model = dataSnapshot.getValue(Model.class);
+                    for(int i=0;i<sqlGeofenceArrayList.size();i++){
+                        if(sqlGeofenceArrayList.get(i).getFenceKey().equals(model.getFenceKey())){
+                            geo_Sqlite.deleteGeofence(model.getFenceKey());
+                            Toast.makeText(Geofence_Service.this,model.getFenceKey()+"updated",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    }
 
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {

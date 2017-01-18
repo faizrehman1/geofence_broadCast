@@ -10,6 +10,7 @@ public class Model {
     private float Radius;
     private String fenceKey;
     private String Place;
+    private String date;
 
     public Model() {
     }
@@ -21,6 +22,21 @@ public class Model {
         Radius = radius;
         this.fenceKey = fenceKey;
         Place = place;
+    }
+
+    public Model(double longitude, double latitude, String place, String date) {
+        Longitude = longitude;
+        Latitude = latitude;
+        Place = place;
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getPlace() {

@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         geofenceArrayList = new ArrayList<>();
         btnAddfence = (Button)findViewById(R.id.add_geofence);
         addToFirebase = (Button)findViewById(R.id.add_geofencetofire);
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(broadCastIntent);
+//        unregisterReceiver(broadCastIntent);
     }
 
     @Override

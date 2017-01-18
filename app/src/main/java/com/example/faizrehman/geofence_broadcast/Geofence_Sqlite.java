@@ -81,17 +81,25 @@ public class Geofence_Sqlite extends SQLiteOpenHelper {
             double geofenceLong = cursor.getDouble(3);
             float geofenceRadius = cursor.getFloat(4);
             String place = cursor.getString(5);
-
-
             // String checkBoxx = cursor.getString(3);
             Log.d("ID is ", "Msg:" + id+geofenceKey+geofenceLat+geofenceLong+geofenceRadius);
             arrayList.add(new Model(geofenceLong,geofenceLat,geofenceRadius,geofenceKey,place));
 
-
         }
-
-
         db.close();
         return arrayList;
+    }
+
+//    public void UpdateFence(String key){
+//
+//            ContentValues values = new ContentValues();
+//            values.put(PRODUCT_QUANTITY,String .valueOf(quantity));
+//
+//            Log.d("tag",String .valueOf(quantity));
+//            this.getWritableDatabase().update(PRODUCT_TABLE,values,PRODUCT_ID+"="+pos,null);
+//    }
+
+    public void deleteGeofence(String pos){
+        this.getWritableDatabase().delete(TABLE_NAME,GEOFENCES_KEY+"="+pos,null);
     }
 }
